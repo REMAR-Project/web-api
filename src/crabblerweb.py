@@ -1,3 +1,6 @@
+# coding: utf-8
+# as per http://www.python.org/dev/peps/pep-0263/
+
 import json
 import logging
 import uuid
