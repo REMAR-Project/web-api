@@ -48,10 +48,7 @@ def up():
         page='''
         <html>
         <body>
-        <form action="" method="post" name="form" enctype="multipart/form-data">
-          <input type="file" name="datafile" />
-          <input type="submit" name="submit" id="submit"/>
-        </form>
+        <b>Nothing to see here ;)</b>
         </body>
         </html>
         '''
