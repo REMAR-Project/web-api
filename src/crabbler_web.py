@@ -1,7 +1,9 @@
 import logging
+import uuid
+import datetime
 
 from logging.handlers import RotatingFileHandler
-from flask import Flask, url_for
+from flask import Flask, request, url_for
 app = Flask(__name__)
 
 def logs(app):
@@ -17,7 +19,31 @@ def logs(app):
 def root():
     this_route = url_for('.root')
     app.logger.info("Logging a test message from "+this_route)
-    return "Hello Crabs!"
+    return "Hello Crabs! "
+
+@app.route("/report", methods=['POST', 'GET'])
+def report():
+  if request.method == 'POST':
+    dt = str(datetime.datetime.now().isoformat())
+    u = str(uuid.uuid4())
+    filename = dt + "_" + u + ".json"
+    pathname = 'data/'+filename
+    f = request.files['datafile']
+    f.save(pathname)
+    return "File Uploaded to " + pathname, 200
+
+  else:
+    page='''
+    <html>
+    <body>
+    <form action="" method="post" name="form" enctype="multipart/form-data">
+      <input type="file" name="datafile" />
+      <input type="submit" name="submit" id="submit"/>
+    </form>
+    </body>
+    </html>
+    '''
+    return page, 200
 
 
 if __name__ == "__main__":
