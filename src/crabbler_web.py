@@ -1,3 +1,4 @@
+import json
 import logging
 import uuid
 import datetime
@@ -15,35 +16,46 @@ def logs(app):
     app.logger.setLevel('DEBUG')
     app.logger.addHandler(file_handler)
 
+@app.errorhandler(400)
+def status_404(exception):
+    msg = {"Method": request.method, "URL":request.url}
+    app.logger.error(json.dumps(msg))
+    app.logger.exception(exception)
+    return "400", 400
+
 @app.route("/")
 def root():
     this_route = url_for('.root')
     app.logger.info("Logging a test message from "+this_route)
     return "Hello Crabs! "
 
-@app.route("/report", methods=['POST', 'GET'])
-def report():
-  if request.method == 'POST':
-    dt = str(datetime.datetime.now().isoformat())
-    u = str(uuid.uuid4())
-    filename = dt + "_" + u + ".json"
-    pathname = 'data/'+filename
-    f = request.files['datafile']
-    f.save(pathname)
-    return "File Uploaded to " + pathname, 200
+@app.route("/up", methods=['POST', 'GET'])
+def up():
+    if request.method == 'POST':
+        json_data = request.json
+    
+        dt = str(datetime.datetime.now().isoformat())
+        u = str(uuid.uuid4())
+        filename = dt + "_" + u + ".json"
+        pathname = 'data/'+filename
+        
+        with open(pathname, 'w') as outfile:
+            json.dump(json_data, outfile)
 
-  else:
-    page='''
-    <html>
-    <body>
-    <form action="" method="post" name="form" enctype="multipart/form-data">
-      <input type="file" name="datafile" />
-      <input type="submit" name="submit" id="submit"/>
-    </form>
-    </body>
-    </html>
-    '''
-    return page, 200
+        return "File Uploaded to " + pathname, 200
+
+    else:
+        page='''
+        <html>
+        <body>
+        <form action="" method="post" name="form" enctype="multipart/form-data">
+          <input type="file" name="datafile" />
+          <input type="submit" name="submit" id="submit"/>
+        </form>
+        </body>
+        </html>
+        '''
+        return page, 200
 
 
 if __name__ == "__main__":
