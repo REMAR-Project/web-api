@@ -4,8 +4,9 @@ import uuid
 import datetime
 
 from logging.handlers import RotatingFileHandler
-from flask import Flask, request, url_for
+from flask import Flask, jsonify, Markup, request, url_for
 app = Flask(__name__)
+
 
 def logs(app):
     log_pathname = 'var/crabbler_web.log'
@@ -17,17 +18,86 @@ def logs(app):
     app.logger.addHandler(file_handler)
 
 @app.errorhandler(400)
-def status_404(exception):
+def error_400(e):
+    statuscode = 400
     msg = {"Method": request.method, "URL":request.url}
     app.logger.error(json.dumps(msg))
-    app.logger.exception(exception)
-    return "400", 400
+    if 'text/html' in request.headers.get("Accept", ""):
+        return Markup(str(statuscode)+" "+msg), statuscode
+    else:
+        return jsonify( {'status':'ko', 'statuscode': statuscode, 'message':msg} ), statuscode
+
+@app.errorhandler(401)
+def error_401(e):
+    statuscode = 401
+    msg = {"Method": request.method, "URL":request.url}
+    app.logger.error(json.dumps(msg))
+    if 'text/html' in request.headers.get("Accept", ""):
+        return Markup(str(statuscode)+" "+msg), statuscode
+    else:
+        return jsonify( {'status':'ko', 'statuscode': statuscode, 'message':msg} ), statuscode
+
+@app.errorhandler(403)
+def error_403(e):
+    statuscode = 403
+    msg = {"Method": request.method, "URL":request.url}
+    app.logger.error(json.dumps(msg))
+    if 'text/html' in request.headers.get("Accept", ""):
+        return Markup(str(statuscode)+" "+msg), statuscode
+    else:
+        return jsonify( {'status':'ko', 'statuscode': statuscode, 'message':msg} ), statuscode
+
+@app.errorhandler(404)
+def error_404(e):
+    statuscode = 404
+    msg = {"Method": request.method, "URL":request.url}
+    app.logger.error(json.dumps(msg))
+    if 'text/html' in request.headers.get("Accept", ""):
+        return Markup(str(statuscode)+" "+msg), statuscode
+    else:
+        return jsonify( {'status':'ko', 'statuscode': statuscode, 'message':msg} ), statuscode
+
+@app.errorhandler(405)
+def error_405(e):
+    statuscode = 405
+    msg = {"Method": request.method, "URL":request.url}
+    app.logger.error(json.dumps(msg))
+    if 'text/html' in request.headers.get("Accept", ""):
+        return Markup(str(statuscode)+" "+msg), statuscode
+    else:
+        return jsonify( {'status':'ko', 'statuscode': statuscode, 'message':msg} ), statuscode
+
+@app.errorhandler(410)
+def error_410(e):
+    statuscode = 410
+    msg = {"Method": request.method, "URL":request.url}
+    app.logger.error(json.dumps(msg))
+    if 'text/html' in request.headers.get("Accept", ""):
+        return Markup(str(statuscode)+" "+msg), statuscode
+    else:
+        return jsonify( {'status':'ko', 'statuscode': statuscode, 'message':msg} ), statuscode
+
+@app.errorhandler(500)
+def error_500(e):
+    statuscode = 500
+    msg = {"Method": request.method, "URL":request.url}
+    app.logger.error(json.dumps(msg))
+    if 'text/html' in request.headers.get("Accept", ""):
+        return Markup(str(statuscode)+" "+msg), statuscode
+    else:
+        return jsonify( {'status':'ko', 'statuscode':statuscode, 'message':msg} ), statuscode
 
 @app.route("/")
 def root():
     this_route = url_for('.root')
     app.logger.info("Logging a test message from "+this_route)
-    return "Hello Crabs! "
+    msg = "Hello Crab Fans"
+    statuscode = 200
+    app.logger.info(json.dumps(msg))
+    if 'text/html' in request.headers.get("Accept", ""):
+        return Markup(msg), statuscode
+    else:
+        return jsonify( {'status':'ko', 'statuscode':statuscode, 'message':msg} ), statuscode
 
 @app.route("/up", methods=['POST', 'GET'])
 def up():
@@ -42,17 +112,29 @@ def up():
         with open(pathname, 'w') as outfile:
             json.dump(json_data, outfile)
 
-        return "File Uploaded to " + pathname, 200
+        msg = "File Uploaded to " + pathname
+        statuscode = 200
+        app.logger.info(json.dumps(msg))
+        if 'text/html' in request.headers.get("Accept", ""):
+            return Markup(msg), statuscode
+        else:
+            return jsonify( {'status':'ko', 'statuscode':statuscode, 'message':msg} ), statuscode
+
 
     else:
-        page='''
-        <html>
-        <body>
-        <b>Nothing to see here ;)</b>
-        </body>
-        </html>
-        '''
-        return page, 200
+        statuscode = 200
+        if 'text/html' in request.headers.get("Accept", ""):
+            page='''
+            <html>
+            <body>
+            <b>Nothing to see here ;)</b>
+            </body>
+            </html>
+            '''
+            return Markup(page), statuscode
+        else:
+            msg = "Nothing to see here ;)"
+            return jsonify( {'status':'ok', 'statuscode':statuscode, 'message':msg} ), statuscode
 
 
 if __name__ == "__main__":
