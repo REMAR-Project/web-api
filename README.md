@@ -32,11 +32,10 @@ There isn't much to see as this server app is, for the moment, mostly aimed at c
 Run the tests
 =============
 
-Add application src to the PYTHONPATH:
-    $ PYTHONPATH=`pwd`/src/crabbler-web
+From the crabbler-web folder you can run the test by executing the following:
 
-Run the tests:
-    $ python test/crabbler-web/crabbler-web_test.py
+    $ python test/crabblerwebtest/crabblerwebtest.py
+
 
 Using the API
 =============
