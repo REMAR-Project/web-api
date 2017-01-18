@@ -32,7 +32,7 @@ There isn't much to see as this server app is, for the moment, mostly aimed at c
 Run the tests
 =============
 
-From the crabbler-web folder you can run the test by executing the following:
+From the crabbler-web folder you can run the unittests by executing the following:
 
     $ python test/crabblerwebtest/crabblerwebtest.py
 
