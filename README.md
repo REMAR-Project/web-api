@@ -3,10 +3,10 @@ REMAR/Crabbler-Web
 
 This is the server side web component for the REMAR citizen science Mangrove crab study.
 
-Running REMAR/Crabbler-web
-==========================
+Running REMAR/Crabbler-web (Development)
+========================================
 
-Crabbler-web should be deployed using uWSGI as the app server but it should run perfectly happyily using the Flask development server. Assuming that you have Pip, VirtualEnv and CouchDB installed, cd into the case.study/daybook/ directory then create a new virtualenv:
+Crabbler-web should be deployed using uWSGI as the app server but it should run perfectly happyily using the Flask development server. Assuming that you already have Pip and VirtualEnv installed, cd into the crabbler-web directory then create a new virtualenv:
 
     $ cd case.study/daybook/
     $ virtualenv env
@@ -58,5 +58,15 @@ Which should get you a response similar to the following:
       "status": "ko", 
       "statuscode": 200
     }
+
+Running REMAR/Crabbler-web (Production)
+=======================================
+
+This section is a work-in-progress....
+
+Install uWSGI
+Create necessary folder
+Create a uWSGI config file
+
 
 
