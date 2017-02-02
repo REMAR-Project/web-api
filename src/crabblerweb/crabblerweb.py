@@ -20,75 +20,6 @@ def logs(app):
     app.logger.setLevel('DEBUG')
     app.logger.addHandler(file_handler)
 
-@app.errorhandler(400)
-def error_400(e):
-    statuscode = 400
-    msg = {"Method": request.method, "URL":request.url}
-    app.logger.error(json.dumps(msg))
-    if 'text/html' in request.headers.get("Accept", ""):
-        return Markup(str(statuscode)+" "+msg), statuscode
-    else:
-        return jsonify( {'status':'ko', 'statuscode': statuscode, 'message':msg} ), statuscode
-
-@app.errorhandler(401)
-def error_401(e):
-    statuscode = 401
-    msg = {"Method": request.method, "URL":request.url}
-    app.logger.error(json.dumps(msg))
-    if 'text/html' in request.headers.get("Accept", ""):
-        return Markup(str(statuscode)+" "+msg), statuscode
-    else:
-        return jsonify( {'status':'ko', 'statuscode': statuscode, 'message':msg} ), statuscode
-
-@app.errorhandler(403)
-def error_403(e):
-    statuscode = 403
-    msg = {"Method": request.method, "URL":request.url}
-    app.logger.error(json.dumps(msg))
-    if 'text/html' in request.headers.get("Accept", ""):
-        return Markup(str(statuscode)+" "+msg), statuscode
-    else:
-        return jsonify( {'status':'ko', 'statuscode': statuscode, 'message':msg} ), statuscode
-
-@app.errorhandler(404)
-def error_404(e):
-    statuscode = 404
-    msg = {"Method": request.method, "URL":request.url}
-    app.logger.error(json.dumps(msg))
-    if 'text/html' in request.headers.get("Accept", ""):
-        return Markup(str(statuscode)+" "+msg), statuscode
-    else:
-        return jsonify( {'status':'ko', 'statuscode': statuscode, 'message':msg} ), statuscode
-
-@app.errorhandler(405)
-def error_405(e):
-    statuscode = 405
-    msg = {"Method": request.method, "URL":request.url}
-    app.logger.error(json.dumps(msg))
-    if 'text/html' in request.headers.get("Accept", ""):
-        return Markup(str(statuscode)+" "+msg), statuscode
-    else:
-        return jsonify( {'status':'ko', 'statuscode': statuscode, 'message':msg} ), statuscode
-
-@app.errorhandler(410)
-def error_410(e):
-    statuscode = 410
-    msg = {"Method": request.method, "URL":request.url}
-    app.logger.error(json.dumps(msg))
-    if 'text/html' in request.headers.get("Accept", ""):
-        return Markup(str(statuscode)+" "+msg), statuscode
-    else:
-        return jsonify( {'status':'ko', 'statuscode': statuscode, 'message':msg} ), statuscode
-
-@app.errorhandler(500)
-def error_500(e):
-    statuscode = 500
-    msg = {"Method": request.method, "URL":request.url}
-    app.logger.error(json.dumps(msg))
-    if 'text/html' in request.headers.get("Accept", ""):
-        return Markup(str(statuscode)+" "+msg), statuscode
-    else:
-        return jsonify( {'status':'ko', 'statuscode':statuscode, 'message':msg} ), statuscode
 
 @app.route("/")
 def root():
@@ -121,7 +52,7 @@ def up():
         if 'text/html' in request.headers.get("Accept", ""):
             return Markup(msg), statuscode
         else:
-            return jsonify( {'status':'ko', 'statuscode':statuscode, 'message':msg} ), statuscode
+            return jsonify( {'status':'ok', 'statuscode':statuscode, 'message':msg} ), statuscode
 
 
     else:
