@@ -39,7 +39,6 @@ def legacy_api_users():
     msg = "Legacy users API"
     statuscode = 200
 
-
     if request.method == 'POST':
         json_data = request.json
         app.logger.info(json.dumps(json_data))
@@ -53,6 +52,7 @@ def legacy_api_users():
         return jsonify( {'status':'ko', 'statuscode':statuscode, 'message':msg} ), statuscode
 
 
+@app.route("/api/0.2/sightings", methods=['POST', 'GET'])
 @app.route("/up", methods=['POST', 'GET'])
 def up():
     if request.method == 'POST':
