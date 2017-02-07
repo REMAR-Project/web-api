@@ -7,7 +7,7 @@ import uuid
 import datetime
 
 from logging.handlers import RotatingFileHandler
-from flask import Flask, jsonify, Markup, request, url_for
+from flask import Flask, jsonify, make_response, Markup, request, url_for
 app = Flask(__name__)
 
 
@@ -32,6 +32,26 @@ def root():
         return Markup(msg), statuscode
     else:
         return jsonify( {'status':'ko', 'statuscode':statuscode, 'message':msg} ), statuscode
+
+
+@app.route("/api/0.2/users", methods=['POST', 'GET'])
+def legacy_api_users():
+    msg = "Legacy users API"
+    statuscode = 200
+
+
+    if request.method == 'POST':
+        json_data = request.json
+        app.logger.info(json.dumps(json_data))
+        resp = make_response()
+        resp.headers['Authorization'] = "<JWT helloworld>"
+        return resp
+
+    if 'text/html' in request.headers.get("Accept", ""):
+        return Markup(msg), statuscode
+    else:
+        return jsonify( {'status':'ko', 'statuscode':statuscode, 'message':msg} ), statuscode
+
 
 @app.route("/up", methods=['POST', 'GET'])
 def up():
