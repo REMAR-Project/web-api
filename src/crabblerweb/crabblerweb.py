@@ -43,7 +43,7 @@ def legacy_api_users():
         json_data = request.json
         app.logger.info(json.dumps(json_data))
         resp = make_response()
-        resp.headers['Authorization'] = "<JWT helloworld>"
+        resp.headers['Authorization'] = "JWT helloworld"
         return resp
 
     if 'text/html' in request.headers.get("Accept", ""):
