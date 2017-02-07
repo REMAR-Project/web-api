@@ -6,9 +6,9 @@ This is the server side web component for the REMAR citizen science Mangrove cra
 Running REMAR/Crabbler-web (Development)
 ========================================
 
-Crabbler-web should be deployed using uWSGI as the app server but it should run perfectly happyily using the Flask development server. Assuming that you already have Pip and VirtualEnv installed, cd into the crabbler-web directory then create a new virtualenv:
+Crabbler-web should be deployed using uWSGI as the app server but it should run perfectly happily using the Flask development server. Assuming that you already have Pip and VirtualEnv installed, cd into the crabbler-web directory then create a new virtualenv:
 
-    $ cd case.study/daybook/
+    $ cd crabbler-web/
     $ virtualenv env
 
 Start your virtualenv then install the external libraries using the supplied requirements.txt
@@ -16,10 +16,10 @@ Start your virtualenv then install the external libraries using the supplied req
     $ source env/bin/activate
     $ pip install -r requirements.txt
 
-Now create a var/ directory to store log files from the running app and create an empty log file ready for data:
+Now create a logs/ directory to store log files from the running app and create an empty log file ready for data:
 
     $ mdkir var
-    $ touch var/daybook.log
+    $ touch var/crabblerweb.log
 
 Now create a data/ directory where uploaded json files can be stored:
 
