@@ -26,7 +26,6 @@ app.logger.addHandler(file_handler)
 @app.route("/")
 def root():
     this_route = url_for('.root')
-    app.logger.info("Logging a test message from "+this_route)
     msg = "Hello Crab Fans"
     statuscode = 200
     app.logger.info(json.dumps(msg))
