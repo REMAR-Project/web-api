@@ -85,7 +85,7 @@ Which should get you a response similar to the following:
 
     {
       "message": "File Uploaded to data/2017-01-17T18:54:33.683936_e44aeafe-64bc-4099-a38d-124ba1147287.json", 
-      "status": "ko", 
+      "status": "ok", 
       "statuscode": 200
     }
 
