@@ -39,6 +39,7 @@ def legacy_api_auth():
     msg = "Legacy auth API"
     status = "ok"
     statuscode = 200
+    app.logger.info(json.dumps(msg))
 
     return jsonify( {'status':status, 'statuscode':statuscode, 'access_token': "accesstoken-abcd1234"} ), statuscode
 
@@ -50,7 +51,7 @@ def legacy_api_users():
     msg = "Legacy users API"
     status = "ok"
     statuscode = 200
-
+    app.logger.info(json.dumps(msg))
     json_data = request.json
     
     dt = str(datetime.datetime.now().isoformat())
