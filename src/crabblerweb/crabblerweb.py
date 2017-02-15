@@ -8,8 +8,9 @@ import datetime
 from flask import Flask, jsonify, make_response, Markup, request, url_for
 app = Flask(__name__)
 
-import config
-config.logs(app)
+import configuration
+configuration.init(app)
+configuration.logs(app)
 
 @app.route("/")
 def root():
@@ -95,6 +96,6 @@ def up():
 
 
 if __name__ == "__main__":
-    config.logs(app)
+    configuration.logs(app)
     app.run(host="0.0.0.0", debug=True)
 

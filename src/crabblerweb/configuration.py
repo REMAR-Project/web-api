@@ -1,7 +1,14 @@
+# coding: utf-8
+# as per http://www.python.org/dev/peps/pep-0263/
 
 import logging
 
 from logging.handlers import RotatingFileHandler
+
+def init(app):
+    app.config['DEBUG'] = True
+    app.config['threaded'] = True
+    app.config['ip_address'] = '0.0.0.0'
 
 def logs(app):
     log_pathname = 'var/crabbler_web.log'
