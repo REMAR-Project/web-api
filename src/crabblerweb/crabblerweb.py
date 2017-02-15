@@ -2,24 +2,14 @@
 # as per http://www.python.org/dev/peps/pep-0263/
 
 import json
-import logging
 import uuid
 import datetime
 
-from logging.handlers import RotatingFileHandler
 from flask import Flask, jsonify, make_response, Markup, request, url_for
 app = Flask(__name__)
 
-
-def logs(app):
-    log_pathname = 'var/crabbler_web.log'
-    file_handler = RotatingFileHandler(log_pathname, maxBytes=1024* 1024 * 10 , backupCount=1024)
-    file_handler.setLevel( app.config['DEBUG'] )
-    formatter = logging.Formatter("%(levelname)s | %(asctime)s |  %(module)s | %(funcName)s | %(message)s")
-    file_handler.setFormatter(formatter)
-    app.logger.setLevel('DEBUG')
-    app.logger.addHandler(file_handler)
-
+import config
+config.logs(app)
 
 @app.route("/")
 def root():
@@ -105,6 +95,6 @@ def up():
 
 
 if __name__ == "__main__":
-    logs(app)
+    config.logs(app)
     app.run(host="0.0.0.0", debug=True)
 
