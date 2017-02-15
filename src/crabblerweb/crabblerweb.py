@@ -33,6 +33,15 @@ def root():
     else:
         return jsonify( {'status':'ko', 'statuscode':statuscode, 'message':msg} ), statuscode
 
+@app.route("/api/0.1/auth", methods=['POST'])
+def legacy_api_auth():
+    msg = "Legacy auth API"
+    status = "ok"
+    statuscode = 200
+
+    return jsonify( {'status':status, 'statuscode':statuscode, 'access_token': "accesstoken-abcd1234"} ), statuscode
+
+
 #    Client supplies JSON doc containing phone_id key. Server responds
 #    with JSON doc containing a phone_id key and unique token value
 @app.route("/api/0.2/users", methods=['POST', 'GET'])
@@ -45,7 +54,7 @@ def legacy_api_users():
         json_data = request.json
         app.logger.info(json.dumps(json_data))
         
-        return jsonify( {'status':status, 'statuscode':statuscode, 'phone_id':'1234abcd'} ), statuscode
+        return jsonify( {'status':status, 'statuscode':statuscode, 'phone_id':'phoneid-1234abcd'} ), statuscode
 
     if 'text/html' in request.headers.get("Accept", ""):
         return Markup(msg), statuscode
