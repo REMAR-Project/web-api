@@ -49,31 +49,30 @@ Using the API
 
 You can call the users route as follows:
     
-     $ curl -H "Content-type: application/json" localhost:5000/api/0.2/users -X POST -d @testdata/user.json
+    $ curl -H "Content-type: application/json" localhost:5000/api/0.2/users -X POST -d @testdata/user.json
+
+    
+which should yield output similar to the following:
+
+    {
+      "phone_id": "phoneid-1234abcd", 
+      "status": "ok", 
+      "statuscode": 200
+    }
+
+You can call the users route as follows:
+
+    $ curl -H "Content-type: application/json" localhost:5000/api/0.1/auth -X POST -d @testdata/user.json
 
 which should yield output similar to the following:
 
-    *   Trying 127.0.0.1...
-    * Connected to localhost (127.0.0.1) port 5000 (#0)
-    > POST /api/0.2/users HTTP/1.1
-    > Host: localhost:5000
-    > User-Agent: curl/7.43.0
-    > Accept: */*
-    > Content-type: application/json
-    > Content-Length: 60
-    > 
-    * upload completely sent off: 60 out of 60 bytes
-    * HTTP 1.0, assume close after body
-    < HTTP/1.0 200 OK
-    < Content-Type: text/html; charset=utf-8
-    < Authorization: JWT helloworld
-    < Content-Length: 0
-    < Server: Werkzeug/0.11.15 Python/2.7.11
-    < Date: Tue, 07 Feb 2017 16:47:24 GMT
-    < 
-    * Closing connection 0
+    {
+      "access_token": "accesstoken-abcd1234", 
+      "status": "ok", 
+      "statuscode": 200
+    }
 
-You can call the upload route, using a suitable JSON document as a payload as follows:
+Finally you can call the upload route, using a suitable JSON document as a payload as follows:
 
     $ curl -H "Content-type: application/json" http://localhost:5000/up -X POST  -d @testdata/sighting.json 
 
