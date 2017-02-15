@@ -7,10 +7,9 @@ import datetime
 
 from flask import Flask, jsonify, make_response, Markup, request, url_for
 app = Flask(__name__)
-
-import configuration
-configuration.init(app)
-configuration.logs(app)
+app.config['DEBUG'] = True
+app.config['threaded'] = True
+app.config['ip_address'] = '0.0.0.0'
 
 @app.route("/")
 def root():
