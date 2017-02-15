@@ -51,6 +51,15 @@ def legacy_api_users():
     statuscode = 200
 
     json_data = request.json
+    
+    dt = str(datetime.datetime.now().isoformat())
+    u = str(uuid.uuid4())
+    filename = dt + "_" + u + ".json"
+    pathname = 'data/users/'+filename
+        
+    with open(pathname, 'w') as outfile:
+        json.dump(json_data, outfile)
+
     app.logger.info(json.dumps(json_data))
         
     return jsonify( {'status':status, 'statuscode':statuscode, 'phone_id':'phoneid-1234abcd'} ), statuscode
@@ -65,7 +74,7 @@ def up():
         dt = str(datetime.datetime.now().isoformat())
         u = str(uuid.uuid4())
         filename = dt + "_" + u + ".json"
-        pathname = 'data/'+filename
+        pathname = 'data/sightings/'+filename
         
         with open(pathname, 'w') as outfile:
             json.dump(json_data, outfile)
