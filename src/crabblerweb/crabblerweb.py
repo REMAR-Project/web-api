@@ -41,6 +41,9 @@ def legacy_api_auth():
     statuscode = 200
     app.logger.info(json.dumps(msg))
 
+    json_data = request.json
+    app.logger.info(json.dumps(json_data))
+
     return jsonify( {'status':status, 'statuscode':statuscode, 'access_token': "accesstoken-abcd1234"} ), statuscode
 
 
@@ -52,7 +55,10 @@ def legacy_api_users():
     status = "ok"
     statuscode = 200
     app.logger.info(json.dumps(msg))
+
     json_data = request.json
+    app.logger.info(json.dumps(json_data))
+
     
     dt = str(datetime.datetime.now().isoformat())
     u = str(uuid.uuid4())
@@ -62,7 +68,6 @@ def legacy_api_users():
     with open(pathname, 'w') as outfile:
         json.dump(json_data, outfile)
 
-    app.logger.info(json.dumps(json_data))
         
     return jsonify( {'status':status, 'statuscode':statuscode, 'phone_id':'phoneid-1234abcd'} ), statuscode
 
@@ -72,6 +77,7 @@ def legacy_api_users():
 def up():
     if request.method == 'POST':
         json_data = request.json
+        app.logger.info(json.dumps(json_data))
     
         dt = str(datetime.datetime.now().isoformat())
         u = str(uuid.uuid4())
@@ -80,6 +86,7 @@ def up():
         
         with open(pathname, 'w') as outfile:
             json.dump(json_data, outfile)
+
 
         msg = "File Uploaded to " + pathname
         statuscode = 200
