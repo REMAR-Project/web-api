@@ -21,9 +21,12 @@ Now create a logs/ directory to store log files from the running app and create 
     $ mdkir var
     $ touch var/crabblerweb.log
 
-Now create a data/ directory where uploaded json files can be stored:
+Now create the data/ directories where uploaded json files can be stored:
 
     $ mkdir data
+    $ mkdir data/auth
+    $ mkdir data/sightings
+    $ mkdir data/users
 
 
 Finally, we want Crabbler-web to run with the src directory as a sub-directory of our application root (mainly so that the etc/ and var/ directories are located correctly relative to the running app) so cd to the crabbler-web folder then start the app as follows:
