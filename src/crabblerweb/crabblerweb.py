@@ -43,8 +43,16 @@ def legacy_api_auth():
 
     json_data = request.json
     app.logger.info(json.dumps(json_data))
+    
+    dt = str(datetime.datetime.now().isoformat())
+    u = str(uuid.uuid4())
+    filename = dt + "_" + u + ".json"
+    pathname = 'data/auth/'+filename
 
-    return jsonify( {'status':status, 'statuscode':statuscode, 'access_token': "accesstoken-abcd1234"} ), statuscode
+    with open(pathname, 'w') as outfile:
+        json.dump(json_data, outfile)
+
+    return jsonify( {'status':status, 'statuscode':statuscode, 'access_token':u} ), statuscode
 
 
 #    Client supplies JSON doc containing phone_id key. Server responds
@@ -64,12 +72,12 @@ def legacy_api_users():
     u = str(uuid.uuid4())
     filename = dt + "_" + u + ".json"
     pathname = 'data/users/'+filename
-        
+
     with open(pathname, 'w') as outfile:
         json.dump(json_data, outfile)
 
         
-    return jsonify( {'status':status, 'statuscode':statuscode, 'phone_id':'phoneid-1234abcd'} ), statuscode
+    return jsonify( {'status':status, 'statuscode':statuscode, 'phone_id':u} ), statuscode
 
 
 @app.route("/api/0.2/sightings", methods=['POST', 'GET'])
