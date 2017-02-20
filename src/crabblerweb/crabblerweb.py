@@ -96,7 +96,7 @@ def up():
             json.dump(json_data, outfile)
 
 
-        msg = "File Uploaded to " + pathname
+        msg = "Sightings uploaded successfully."
         statuscode = 200
         app.logger.info(json.dumps(msg))
         if 'text/html' in request.headers.get("Accept", ""):
