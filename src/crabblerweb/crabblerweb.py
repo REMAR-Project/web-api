@@ -3,7 +3,7 @@
 
 import json
 import uuid
-import datetime
+from datetime import datetime
 
 from flask import Flask, jsonify, make_response, Markup, request, url_for
 app = Flask(__name__)
@@ -22,6 +22,8 @@ file_handler.setFormatter(formatter)
 app.logger.setLevel('DEBUG')
 app.logger.addHandler(file_handler)
 
+def now():
+    return str(datetime.now().strftime('%Y-%M-%dT%H-%M-%S'))
 
 @app.route("/")
 def root():
@@ -41,18 +43,21 @@ def legacy_api_auth():
     statuscode = 200
     app.logger.info(json.dumps(msg))
 
+    dt = now()
+    t = str(uuid.uuid4())
     json_data = request.json
+
+    json_data['token'] = t 
     app.logger.info(json.dumps(json_data))
     
-    dt = str(datetime.datetime.now().isoformat())
-    u = str(uuid.uuid4())
-    filename = dt + "_" + u + ".json"
+
+    filename = dt + "_" + t + ".json"
     pathname = 'data/auth/'+filename
 
     with open(pathname, 'w') as outfile:
         json.dump(json_data, outfile)
 
-    return jsonify( {'status':status, 'statuscode':statuscode, 'access_token':u} ), statuscode
+    return jsonify( {'status':status, 'statuscode':statuscode, 'access_token':t} ), statuscode
 
 
 #    Client supplies JSON doc containing phone_id key. Server responds
@@ -64,12 +69,14 @@ def legacy_api_users():
     statuscode = 200
     app.logger.info(json.dumps(msg))
 
-    json_data = request.json
-    app.logger.info(json.dumps(json_data))
-
-    
-    dt = str(datetime.datetime.now().isoformat())
+    dt = now()
     u = str(uuid.uuid4())
+    json_data = request.json
+    json_data['uuid'] = u
+
+    app.logger.info(json.dumps(json_data))
+    
+    
     filename = dt + "_" + u + ".json"
     pathname = 'data/users/'+filename
 
@@ -87,7 +94,7 @@ def up():
         json_data = request.json
         app.logger.info(json.dumps(json_data))
     
-        dt = str(datetime.datetime.now().isoformat())
+        dt = now()
         u = str(uuid.uuid4())
         filename = dt + "_" + u + ".json"
         pathname = 'data/sightings/'+filename
@@ -122,5 +129,6 @@ def up():
 
 
 if __name__ == "__main__":
+    print now()
     app.run(host="0.0.0.0", debug=True)
 
