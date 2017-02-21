@@ -60,8 +60,6 @@ def legacy_api_auth():
     return jsonify( {'status':status, 'statuscode':statuscode, 'access_token':t} ), statuscode
 
 
-#    Client supplies JSON doc containing phone_id key. Server responds
-#    with JSON doc containing a phone_id key and unique token value
 @app.route("/api/0.2/users", methods=['POST'])
 def legacy_api_users():
     msg = "Legacy users API"
