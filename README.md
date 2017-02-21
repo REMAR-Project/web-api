@@ -50,7 +50,7 @@ From the crabbler-web folder you can run the unittests by executing the followin
 Using the API
 =============
 
-You can call the users route as follows:
+You can call the users route to register as follows:
     
     $ curl -H "Content-type: application/json" localhost:5000/api/0.2/users -X POST -d @testdata/user.json
 
@@ -63,7 +63,7 @@ which should yield output similar to the following:
       "statuscode": 200
     }
 
-You can call the users route as follows:
+You can call the auth route to get an access token as follows:
 
     $ curl -H "Content-type: application/json" localhost:5000/api/0.1/auth -X POST -d @testdata/user.json
 
