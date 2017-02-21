@@ -23,7 +23,7 @@ app.logger.setLevel('DEBUG')
 app.logger.addHandler(file_handler)
 
 def now():
-    return str(datetime.now().strftime('%Y-%M-%dT%H-%M-%S'))
+    return str(datetime.now().strftime('%Y-%m-%dT%H-%M-%S'))
 
 @app.route("/")
 def root():
