@@ -1,6 +1,7 @@
 *.swp
 .DS_Store
 data/
+vassals/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
