@@ -100,5 +100,10 @@ Install uWSGI
 Create necessary folder
 Create a uWSGI config file
 
+Data
+====
 
+All data is stored in the data folder. There are three subfolders for auth, users, and sightings. Internally, the sightings folder will create a sub-folder hierarchy based upon the date in ISO format, e.g. 
+
+    data/sightings/2017/02/22/some-sighting.json
 
