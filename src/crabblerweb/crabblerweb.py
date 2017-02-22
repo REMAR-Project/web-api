@@ -2,6 +2,7 @@
 # as per http://www.python.org/dev/peps/pep-0263/
 
 import json
+import os
 import uuid
 from datetime import datetime
 
@@ -92,10 +93,20 @@ def up():
         json_data = request.json
         app.logger.info(json.dumps(json_data))
     
+
+        year = datetime.now().strftime('%Y')
+        month = datetime.now().strftime('%m')
+        day = datetime.now().strftime('%d')
+
+        path = 'data/sightings/' + year + "/" + month + "/" + day + "/"
+
+        if not os.path.exists(path):
+            os.makedirs(path)
+
         dt = now()
         u = str(uuid.uuid4())
         filename = dt + "_" + u + ".json"
-        pathname = 'data/sightings/'+filename
+        pathname = path+filename
         
         with open(pathname, 'w') as outfile:
             json.dump(json_data, outfile)
